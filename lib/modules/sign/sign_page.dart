@@ -43,9 +43,9 @@ class SignPage extends GetView<SignController> {
                     isPassword: true,
                   ),
                   const SizedBox(height: 16),
-                  Obx(() => const AppButton(
-                        label: "Entrar",
-                      )),
+                  const AppButton(
+                    label: "Entrar",
+                  ),
                 ],
               ))),
     );

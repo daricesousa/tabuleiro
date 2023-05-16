@@ -16,7 +16,7 @@ class GetStorage implements AppStorage {
 
   @override
   get(String key) {
-    _storage.read(key);
+    return _storage.read(key);
   }
 
   @override

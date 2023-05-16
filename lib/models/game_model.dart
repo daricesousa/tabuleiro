@@ -8,7 +8,7 @@ class GameModel {
   final String year;
   final int minPlayers;
   final int maxPlayers;
-  final int averageDurationMinutes;
+  final int? averageDurationMinutes;
   final bool expansion;
   final List<GameFeaturesModel> features;
 

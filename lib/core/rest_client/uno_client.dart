@@ -13,7 +13,7 @@ class UnoClient implements RestClient {
   RestClient get auth {
     _uno.interceptors.request.use((req) {
       final token = _storage.get('token');
-      req.headers['Authorization'] = "Bearer + $token}";
+      req.headers['Authorization'] = "Bearer $token";
       return req;
     });
     return this;

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:tabuleiro/core/ui/widgets/app_button.dart';
 import 'package:tabuleiro/core/ui/widgets/app_form_field.dart';
 import './sign_controller.dart';
+import 'package:mask/mask.dart';
 
 class SignPage extends GetView<SignController> {
   const SignPage({Key? key}) : super(key: key);
@@ -24,29 +25,38 @@ class SignPage extends GetView<SignController> {
                   ]),
               padding: const EdgeInsets.all(16),
               margin: const EdgeInsets.all(16),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text("Login", style: context.textTheme.headlineSmall),
-                  const SizedBox(height: 16),
-                  const AppFormField(
-                    label: "E-mail",
-                    placeholder: "Informe seu e-mail...",
-                    keyboardType: TextInputType.emailAddress,
-                  ),
-                  const SizedBox(height: 16),
-                  const AppFormField(
-                    label: "Senha",
-                    placeholder: "Informe sua senha...",
-                    keyboardType: TextInputType.visiblePassword,
-                    isPassword: true,
-                  ),
-                  const SizedBox(height: 16),
-                  const AppButton(
-                    label: "Entrar",
-                  ),
-                ],
+              child: Form(
+                key: controller.formKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Login", style: context.textTheme.headlineSmall),
+                    const SizedBox(height: 16),
+                    AppFormField(
+                      label: "E-mail",
+                      placeholder: "Informe seu e-mail...",
+                      keyboardType: TextInputType.emailAddress,
+                      controller: controller.emailController,
+                      validator: Mask.validations.email,
+                    ),
+                    const SizedBox(height: 16),
+                    AppFormField(
+                      label: "Senha",
+                      placeholder: "Informe sua senha...",
+                      keyboardType: TextInputType.visiblePassword,
+                      isPassword: true,
+                      controller: controller.passwordController,
+                      validator: (value) =>
+                          Mask.validations.generic(value, error: "Campo vazio"),
+                    ),
+                    const SizedBox(height: 16),
+                    AppButton(
+                      label: "Entrar",
+                      onPressed: controller.sign,
+                    ),
+                  ],
+                ),
               ))),
     );
   }

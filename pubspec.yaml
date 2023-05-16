@@ -37,6 +37,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.5
   get_storage: ^2.1.1
+  uno: ^1.1.7
+  mask: ^1.0.4
 
 dev_dependencies:
   flutter_test:

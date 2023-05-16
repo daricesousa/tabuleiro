@@ -1,14 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:get_storage/get_storage.dart' as GetS;
 import 'package:tabuleiro/core/app_binding.dart';
+import 'package:tabuleiro/core/storage/get_storage.dart';
 import 'package:tabuleiro/routes.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  await GetS.GetStorage.init();
+  final token = GetStorage().get("token");
+  runApp(MyApp(isAuthenticated: token != null));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final bool isAuthenticated;
+  const MyApp({super.key, this.isAuthenticated = false});
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
@@ -19,7 +24,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'GloriaHallelujah',
       ),
       getPages: Routes().pages,
-      initialRoute: '/sign',
+      initialRoute: isAuthenticated ? '/games' : '/sign',
       initialBinding: AppBinding(),
     );
   }

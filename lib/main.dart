@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get_navigation/get_navigation.dart';
+import 'package:tabuleiro/core/app_binding.dart';
 import 'package:tabuleiro/routes.dart';
 
 void main() {
@@ -19,6 +20,7 @@ class MyApp extends StatelessWidget {
       ),
       getPages: Routes().pages,
       initialRoute: '/sign',
+      initialBinding: AppBinding(),
     );
   }
 }

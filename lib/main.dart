@@ -3,6 +3,7 @@ import 'package:get/get_navigation/get_navigation.dart';
 import 'package:get_storage/get_storage.dart' as GetS;
 import 'package:tabuleiro/core/app_binding.dart';
 import 'package:tabuleiro/core/storage/get_storage.dart';
+import 'package:tabuleiro/core/ui/app_theme.dart';
 import 'package:tabuleiro/routes.dart';
 
 Future<void> main() async {
@@ -18,11 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Tabuleiro',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-        fontFamily: 'GloriaHallelujah',
-      ),
+      theme: AppTheme.theme,
       getPages: Routes().pages,
       initialRoute: isAuthenticated ? '/games' : '/sign',
       initialBinding: AppBinding(),

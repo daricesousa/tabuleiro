@@ -7,23 +7,31 @@ import 'package:tabuleiro/services/auth/game/game_service.dart';
 class GameListController extends GetxController {
   final GameService _gameService;
   final gameList = <GameModel>[].obs;
+  var nextPage = 0;
+  var loading = false;
 
   GameListController(this._gameService);
 
   @override
-  void onInit() async {
+  void onReady() async {
     getListGames();
-    super.onInit();
+    super.onReady();
   }
 
   Future<void> getListGames() async {
+    if (loading) {
+      return;
+    }
+    loading = true;
     try {
-      final res = await _gameService.getListGames();
+      final res = await _gameService.getListGames(page: nextPage);
       gameList.addAll(res);
+      nextPage++;
     } on RestClientException {
       AppSnackBar.error('Erro de conexão com o servidor');
     } catch (e) {
       AppSnackBar.error('Erro ao buscar lista de jogos');
     }
+    loading = false;
   }
 }

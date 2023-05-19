@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:tabuleiro/core/ui/widgets/app_image_net.dart';
 import './game_list_controller.dart';
 
 class GameListPage extends GetView<GameListController> {
@@ -8,56 +9,76 @@ class GameListPage extends GetView<GameListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Jogos'),
-        ),
-        body: Obx(
-          () => GridView.builder(
-            padding: const EdgeInsets.all(10),
-            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-                maxCrossAxisExtent: 600,
-                crossAxisSpacing: 5,
-                mainAxisSpacing: 5,
-                mainAxisExtent: 100),
-            itemCount: controller.gameList.length,
-            itemBuilder: (context, index) {
-              final game = controller.gameList[index];
-              return InkWell(
-                onTap: () => Get.toNamed('/games/detail/${game.id}'),
-                child: Card(
-                  child: Row(
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(10),
-                          child: Image.network(
-                            game.banner,
-                            fit: BoxFit.cover,
-                            height: 80,
-                            width: 80,
+      appBar: AppBar(
+        title: const Text('Jogos'),
+      ),
+      body: Obx(() {
+        return Padding(
+          padding: const EdgeInsets.all(8),
+          child: CustomScrollView(
+            slivers: [
+              SliverGrid(
+                gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                    maxCrossAxisExtent: 600,
+                    crossAxisSpacing: 5,
+                    mainAxisSpacing: 5,
+                    mainAxisExtent: 100),
+                delegate: SliverChildBuilderDelegate(
+                  childCount: controller.gameList.length,
+                  (BuildContext context, int index) {
+                    if (index == controller.gameList.length - 2) {
+                      controller.getListGames();
+                    }
+                    final game = controller.gameList[index];
+                    return Card(
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () => Get.toNamed('/games/detail/${game.id}'),
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Row(
+                            children: [
+                              AppImageNet(
+                                imageUrl: game.banner,
+                                height: 80,
+                                width: 80,
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      game.name,
+                                      style: context.textTheme.titleMedium,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                    const SizedBox(height: 8),
+                                    Text(game.year),
+                                  ],
+                                ),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(game.name,
-                                style: context.textTheme.titleMedium,
-                                overflow: TextOverflow.ellipsis),
-                            const SizedBox(height: 8),
-                            Text(game.year),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
+                    );
+                  },
                 ),
-              );
-            },
+              ),
+              SliverLayoutBuilder(builder: (context, constraints) {
+                if (controller.loading) {
+                  return const SliverToBoxAdapter(
+                    child: LinearProgressIndicator(),
+                  );
+                }
+                return const SliverToBoxAdapter(child: SizedBox());
+              })
+            ],
           ),
-        ));
+        );
+      }),
+    );
   }
 }

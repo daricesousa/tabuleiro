@@ -5,10 +5,25 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "tabuleiro",
+      "name": "tabuleiro_chrome",
       "request": "launch",
       "type": "dart",
       "args": [
+        "-d",
+        "chrome",
+        "--web-renderer",
+        "html",
+        "--dart-define",
+        "BASE_URL=http://206.189.206.44:8080"
+      ]
+    },
+    {
+      "name": "tabuleiro_android",
+      "request": "launch",
+      "type": "dart",
+      "args": [
+        "-d",
+        "android",
         "--dart-define",
         "BASE_URL=http://206.189.206.44:8080"
       ]

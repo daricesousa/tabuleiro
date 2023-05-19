@@ -3,7 +3,7 @@ import 'package:tabuleiro/models/game_features_model.dart';
 class GameModel {
   final String id;
   final String name;
-  final String banner;
+  final String? banner;
   final String description;
   final String year;
   final int minPlayers;

@@ -13,4 +13,10 @@ class GameServiceImpl implements GameService {
     final res = await _gameRepository.getListGames(page: page);
     return res;
   }
+
+  @override
+  Future<GameModel> getGame(String id) async {
+    final res = await _gameRepository.getGame(id);
+    return res;
+  }
 }

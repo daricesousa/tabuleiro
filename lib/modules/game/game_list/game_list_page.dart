@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:tabuleiro/core/ui/widgets/app_image_net.dart';
+import 'package:tabuleiro/core/ui/widgets/dialog_logout.dart';
 import './game_list_controller.dart';
 
 class GameListPage extends GetView<GameListController> {
@@ -11,6 +12,16 @@ class GameListPage extends GetView<GameListController> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Jogos'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Get.dialog(DialogLogout(
+                onConfirm: controller.logout,
+              ));
+            },
+            icon: const Icon(Icons.exit_to_app),
+          ),
+        ],
       ),
       body: Obx(() {
         return Padding(

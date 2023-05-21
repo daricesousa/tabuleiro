@@ -22,7 +22,7 @@ class SignController extends GetxController {
         email: emailController.text,
         password: passwordController.text,
       );
-      Get.toNamed('/games');
+      Get.offAndToNamed('/games');
     } on UnauthorizeException {
       AppSnackBar.error("E-mail ou senha inválidos");
     } on RestClientException {

@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Tabuleiro',
+      debugShowCheckedModeBanner: false,
       theme: AppTheme.theme,
       getPages: Routes().pages,
       initialRoute: isAuthenticated ? '/games' : '/sign',

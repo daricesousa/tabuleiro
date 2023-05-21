@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:tabuleiro/core/exceptions/rest_client_exception.dart';
+import 'package:tabuleiro/core/storage/app_storage.dart';
 import 'package:tabuleiro/core/ui/widgets/app_snack_bar.dart';
 import 'package:tabuleiro/models/game_model.dart';
 import 'package:tabuleiro/services/auth/game/game_service.dart';
@@ -33,5 +34,11 @@ class GameListController extends GetxController {
       AppSnackBar.error('Erro ao buscar lista de jogos');
     }
     loading = false;
+  }
+
+  void logout() {
+    final appStorage = Get.find<AppStorage>();
+    appStorage.delete('token');
+    Get.offAllNamed('/sign');
   }
 }

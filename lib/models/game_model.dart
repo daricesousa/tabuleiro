@@ -1,3 +1,4 @@
+import 'package:tabuleiro/models/enums/game_features_enum.dart';
 import 'package:tabuleiro/models/game_features_model.dart';
 
 class GameModel {
@@ -40,6 +41,16 @@ class GameModel {
           .map<GameFeaturesModel>((e) => GameFeaturesModel.fromMap(e))
           .toList(),
     );
+  }
+
+  List<GameFeaturesModel?>? get mechanics {
+    final mechanics = features.map((e) {
+      if (e.type == GameFeaturesEnum.mechanics) {
+        return e;
+      }
+    }).toList();
+    mechanics.removeWhere((e) => e == null);
+    return mechanics;
   }
 
   @override

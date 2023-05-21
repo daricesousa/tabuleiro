@@ -19,4 +19,12 @@ class GameRepositoryImpl implements GameRepository {
     final list = data.map((e) => GameModel.fromMap(e)).toList();
     return list;
   }
+
+  @override
+  Future<GameModel> getGame(String id) async {
+    final res = await _restClient.auth.get(
+      '$_baseUrl/api/jogo/$id',
+    );
+    return GameModel.fromMap(res);
+  }
 }
